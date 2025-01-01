@@ -13,7 +13,6 @@ def test_register_url():
     response = register_url.register_url(PAYLOAD)
     if response:
         print("Response:", response)
-       
 
 if __name__ == "__main__":
     test_register_url(test_register_url())
