@@ -90,11 +90,10 @@ if __name__ == "__main__":
 ```
 from mpesa import Mpesa
 from auth import Auth
-import asyncio
 
 PAYMENT_PAYLOAD = {
         "InitiatorName": "testapi",
-        "SecurityCredential": "YOUR_SECURITY_CREDENTIALS",
+        "SecurityCredential": "YOUR_CREDENTIALS",
         "Occassion": "Disbursement",
         "CommandID": "BusinessPayment",
         "PartyA": "101010",
@@ -105,7 +104,7 @@ PAYMENT_PAYLOAD = {
         "ResultURL": "https://mydomain.com/b2c/result"
 }
 
-async def test_pay_out():
+def test_pay_out():
     auth = Auth()
     token_data =  auth.authenticate()
 
@@ -124,8 +123,27 @@ async def test_pay_out():
         print("Authentication failed.")
 
 if __name__ == "__main__":
-    asyncio.run(test_pay_out())
+    test_pay_out()
+```
 
+## Register URL Example
+```
+from mpesa import Mpesa
 
+PAYLOAD = {
+    "ShortCode": "101010",
+    "ResponseType": "Completed",
+    "CommandID": "RegisterURL",
+    "ConfirmationURL": "http://mydomain.com/c2b/confirmation",
+    "ValidationURL": "http://mydomai.com/c2b/validation"
+}
 
+def test_register_url():
+    register_url = Mpesa()
+    response = register_url.register_url(PAYLOAD)
+    if response:
+        print("Response:", response)      
+
+if __name__ == "__main__":
+    test_register_url(test_register_url())
 ```
