@@ -121,7 +121,7 @@ class Mpesa:
             validated_payload = StkPushRequest(**payload)
 
             # Sending the POST request synchronously using requests
-            response = requests.post(url, json=validated_payload.dict(), headers=headers, timeout=10)
+            response = requests.post(url, json=validated_payload.model_dump(), headers=headers, timeout=10)
 
             # Raise exception for 4xx/5xx errors
             response.raise_for_status()
@@ -152,7 +152,7 @@ class Mpesa:
         try: 
             validated_payload = PaymentPayloadForRegisterURL(**payload)
 
-            response = requests.post(url, json= validated_payload.dict())
+            response = requests.post(url, json= validated_payload.model_dump())
 
             response.raise_for_status()
 
