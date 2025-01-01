@@ -101,12 +101,6 @@ class PaymentPayloadForPayOut(BaseModel):
         # Allow extra fields that might not be in the model
         extra = "allow"
 
-# Pydantic model for response validation for pay out
-class PayoutResponse(BaseModel):
-    ConversationID: str = Field(..., description="Conversation ID...") 
-    OriginatorConversationID: str = Field(..., description="Originator conversation ID...")
-    ResponseCode: str = Field(..., description="Response code...")
-    ResponseDescription: str = Field(..., description="Response description...")
     
 class Mpesa:
     # make auth optional in below method
@@ -177,30 +171,20 @@ class Mpesa:
         
 
 
-            
-    # async function for pay out
-    async def pay_out(self, payload: Any):
+    # Pay out Method for performing a payout            
+    def pay_out(self, payload: Any):
             """ Initiate a payout """
                         
             url = "https://apisandbox.safaricom.et/mpesa/b2c/v2/paymentrequest"
-
             headers = {
                 "Authorization": f"Bearer {self.auth.access_token}",
                 "Content-Type": "application/json"
             }
-
             try:
                 validated_payload = PaymentPayloadForPayOut(**payload)
-
-                response = requests.post(url, json=validated_payload.dict(), headers=headers, timeout=10)
-
-                response.raise_for_status()
-
+                response = requests.post(url, json= validated_payload.model_dump(), headers=headers, timeout=10)
                 response_data = response.json()
-
-                validated_payload  = PayoutResponse(**response_data)
-
-                return validated_payload.dict()
+                return response_data
             except requests.Timeout:
                 raise Exception("Request timed out. Please try again later.")
             except requests.RequestException as e:

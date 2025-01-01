@@ -1,8 +1,5 @@
-from mpesa.api import Mpesa
-from auth.auth import Auth
-import asyncio
-
-AUTH_URL = "https://apisandbox.safaricom.et/v1/token/generate?grant_type=client_credentials"
+from mpesa import Mpesa
+from auth import Auth
 
 PAYMENT_PAYLOAD = {
         "InitiatorName": "testapi",
@@ -17,16 +14,15 @@ PAYMENT_PAYLOAD = {
         "ResultURL": "https://mydomain.com/b2c/result"
 }
 
-async def test_pay_out():
-    auth = Auth(base_url = AUTH_URL)
-    token_data = await auth.authenticate()
+def test_pay_out():
+    auth = Auth()
+    token_data =  auth.authenticate()
 
     if token_data:
         print("Authentication successful:", token_data)
         mpesa = Mpesa(auth=auth)
-
         try:
-            response = await mpesa.pay_out(PAYMENT_PAYLOAD)
+            response = mpesa.pay_out(PAYMENT_PAYLOAD)
             if response:
                 print('payment response:', response)
             else:
@@ -37,6 +33,6 @@ async def test_pay_out():
         print("Authentication failed.")
 
 if __name__ == "__main__":
-    asyncio.run(test_pay_out())
+    test_pay_out()
 
 

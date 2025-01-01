@@ -1,4 +1,4 @@
-from mpesa.api import Mpesa
+from mpesa import Mpesa
 
 PAYLOAD = {
     "ShortCode": "101010",
