@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='payment_sdk',
+    name='mpesa-python',
     version='0.1.0',
     packages=find_packages(),
     install_requires=[
@@ -12,9 +12,10 @@ setup(
     description='A Python SDK for integrating with the payment MPESSA API.',
     author='Yohanes Mesfin',
     author_email='yohanesmesfin3@gmail.com',
-    url='https://github.com/johnnas12/Mpessa_payment_sdk',  # Update with your GitHub repo URL
+    url='https://github.com/Johnnas12/mpesa_python_sdk',  
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
     ],
+    python_requires=">=3.6",
 )

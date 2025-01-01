@@ -1,4 +1,3 @@
-import asyncio
 from auth.auth import Auth
 
 

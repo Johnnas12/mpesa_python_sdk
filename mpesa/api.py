@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 import requests
-import aiohttp
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, ValidationError, field_validator, Field
 
