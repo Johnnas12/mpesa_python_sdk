@@ -85,3 +85,47 @@ async def test_payment():
 if __name__ == "__main__":
     asyncio.run(test_payment())
 ```
+
+## Pay Out Example
+```
+from mpesa import Mpesa
+from auth import Auth
+import asyncio
+
+PAYMENT_PAYLOAD = {
+        "InitiatorName": "testapi",
+        "SecurityCredential": "YOUR_SECURITY_CREDENTIALS",
+        "Occassion": "Disbursement",
+        "CommandID": "BusinessPayment",
+        "PartyA": "101010",
+        "PartyB": "251700100100",
+        "Remarks": "Test B2C",
+        "Amount": 12,
+        "QueueTimeOutURL": "https://mydomain.com/b2c/timeout",
+        "ResultURL": "https://mydomain.com/b2c/result"
+}
+
+async def test_pay_out():
+    auth = Auth()
+    token_data =  auth.authenticate()
+
+    if token_data:
+        print("Authentication successful:", token_data)
+        mpesa = Mpesa(auth=auth)
+        try:
+            response = mpesa.pay_out(PAYMENT_PAYLOAD)
+            if response:
+                print('payment response:', response)
+            else:
+                print("payment failed.")
+        except Exception as e:
+            print("Error during payment testing:", e)
+    else:
+        print("Authentication failed.")
+
+if __name__ == "__main__":
+    asyncio.run(test_pay_out())
+
+
+
+```
