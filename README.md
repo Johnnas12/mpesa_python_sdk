@@ -6,6 +6,11 @@ This is comprensihive guide on how to use mpessa payment gateway SDK in your app
 ```
 pip install mpesa-python
 ```
+## NOTE
+don't forget to create .env file and add you api key there like below:
+```
+MPESA_ACCESS_TOKEN=YOUR_API_KEY
+```
 # Usage Examples
 ## Authentication
 ```
